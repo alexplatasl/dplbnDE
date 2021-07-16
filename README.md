@@ -33,15 +33,31 @@ data(car)
 run.DEbest <- DEbest(NP=30, G=25, data = car, class.name = names(car)[7], crossover = "bin",
                 mutation.pairs = 1, structure = "tan", F = 0.5, CR = 0.55,
                 edgelist = NULL, verbose = 5)
+#Gen:  5 	 CLL=  -1911.61 	 NP=  30 
+#Gen:  10 	 CLL=  -1532.554 	 NP=  30 
+#Gen:  15 	 CLL=  -1392.074 	 NP=  30 
+#Gen:  20 	 CLL=  -1252.369 	 NP=  30 
+#Gen:  25 	 CLL=  -1181.117 	 NP=  30 
+                
 run.DEbest
-plot(run.DEbest)
+#Number of evaluations: 	 780 
+#Final population size: 	 30 
+#
+#Summary results of fitness in final population: 
+#
+#Best CLL: 	 -1181.117 
+#Worst CLL: 	 -1251.721 
+#Median: 	 -1218.063 
+#Std. Dev.: 	 17.96752 
+
+#plot(run.DEbest)
 ```
 
 To learn parameters of a custom structure, load a matrix of sizes edges x 2. Where 
 columns represents direction (from-to) of edges. Like the followwing matrix:
 
 ``` r
-#> my_structure
+my_structure
 #     from       to        
 #[1,] "class"    "buying"  
 #[2,] "class"    "maint"   
@@ -54,9 +70,24 @@ columns represents direction (from-to) of edges. Like the followwing matrix:
 
 run.shade = lshade(NP=5, G=25, data = car, class.name = names(car)[7], c = 0.1,
              pB=0.05, edgelist = my_structure, verbose = 5)
+#Gen:  5 	 CLL=  -1616.161 	 NP=  24 
+#Gen:  10 	 CLL=  -1229.425 	 NP=  20 
+#Gen:  15 	 CLL=  -1161.089 	 NP=  17 
+#Gen:  20 	 CLL=  -1076.062 	 NP=  14 
+#Gen:  25 	 CLL=  -1022.326 	 NP=  12 
 
 run.shade
-plot(run.shade)
+#Number of evaluations: 	 519 
+#Final population size: 	 12 
+#
+#Summary results of fitness in final population: 
+#
+#Best CLL: 	 -1022.326 
+#Worst CLL: 	 -1132.318 
+#Median: 	 -1081.651 
+#Std. Dev.: 	 39.99802 
+
+#plot(run.shade)
 ```
 
-After the learning proccess. 
+After the learning process, returned bayesian networks can be analized with [`bnclassify`](https://cran.r-project.org/web/packages/bnclassify/bnclassify.pdf) package.
