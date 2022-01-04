@@ -1,5 +1,5 @@
-dplbnDE
-==========
+## `dplbnDE`: An R package for discriminative parameter learning of bayesian networks by Differential Evolution
+
 
 Implements Differential Evolution (DE) to train parameters of Bayesian Networks 
 (BN) for optimizing the Conditional Log-Likelihood (Discriminative Learning) 
