@@ -17,6 +17,7 @@
 #' @param edgelist A matrix. An optional edge list to use a custom BN structure
 #' that will replace de learned structure.
 #' @param verbose positive integer indicating the number of generations until the iteration progress should be printed.
+#' @param ... other structure learning options from \link[bnclassify]{tan_cl} or \link[bnclassify]{tan_hc}.
 #'
 #' @export
 #' @return A list with the following components.
@@ -221,31 +222,4 @@ lshade <- function(NP=40, G=100, data, class.name, c = 0.1, structure = c("nb","
 
   attr(outDE, "class") <- "DE"
   outDE
-}
-
-#' Print
-#' @export
-#'
-#' @param object A \code{\link{bnc_bn}} object.
-#'
-print.DE <- function(x,...){
-  cat("Number of evaluations: \t", x$N.evals, "\n")
-  cat("Final population size: \t", length(x$pobFinal), "\n\n")
-  cat("Summary results of fitness in final population: \n\n")
-  cat("Best CLL: \t", x$BestCLL, "\n")
-  cat("Worst CLL: \t", min(x$CLLPobFinal), "\n")
-  cat("Median: \t", median(x$CLLPobFinal), "\n")
-  cat("Std. Dev.: \t", sd(x$CLLPobFinal), "\n")
-}
-
-#' Plot main results of evolution
-#' @export
-#'
-#' @param object A \code{\link{bnc_bn}} object.
-#'
-plot.DE <- function(x,...){
-  par(mfrow=c(1,2))
-  hist(x$CLLPobFinal, xlab = "CLL",  main = "CLL of final population", breaks = sqrt(length(x$pobFinal)))
-  plot(x$evaluations, x$convergence, type = "l", xlab = "Evaluations", ylab = "CLL",
-       main = "Convergence plot")
 }

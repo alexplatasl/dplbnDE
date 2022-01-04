@@ -18,6 +18,7 @@
 #' @param archive A logical. If TRUE, trial vector r2 is randomly selected from the union of
 #' the current population and the external archive.
 #' @param verbose positive integer indicating the number of generations until the iteration progress should be printed.
+#' @param ... other structure learning options from \link[bnclassify]{tan_cl} or \link[bnclassify]{tan_hc}.
 #'
 #' @export
 #' @return A list with the following components.

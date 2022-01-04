@@ -1,9 +1,8 @@
-#' Print
+#' Print main results of evolution
+#'
+#' @param x A list of structures with parameters learned by \code{\link{DE}}.
+#' @param ... unused.
 #' @export
-#'
-#'
-#' @param object A \code{\link{DE}} object.
-#'
 print.DE <- function(x,...){
   cat("Number of evaluations: \t", x$N.evals, "\n")
   cat("Final population size: \t", length(x$pobFinal), "\n\n")
@@ -15,10 +14,12 @@ print.DE <- function(x,...){
 }
 
 #' Plot main results of evolution
+#' @importFrom graphics par hist
+#'
+#' @param x A list of structures with parameters learned by \code{\link{DE}}.
+#' @param ... unused.
+#'
 #' @export
-#'
-#' @param object A \code{\link{DE}} object.
-#'
 plot.DE <- function(x,...){
   par(mfrow=c(1,2))
   hist(x$CLLPobFinal, xlab = "CLL",  main = "CLL of final population", breaks = sqrt(length(x$pobFinal)))

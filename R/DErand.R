@@ -18,6 +18,7 @@
 #' @param edgelist A matrix. An optional edge list to use a custom BN structure.
 #' that will replace de learned structure.
 #' @param verbose positive integer indicating the number of generations until the iteration progress should be printed.
+#' @param ... other structure learning options from \link[bnclassify]{tan_cl} or \link[bnclassify]{tan_hc}.
 #'
 #' @export
 #' @return A list with the following components.
