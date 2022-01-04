@@ -17,10 +17,10 @@ this type of error.
 DE variants:
 Based on different strategies followed by the operators of DE, there are
 different variants, which define the way in which the mutant and trial
-vectors are generated. The most popular variant is called \code{DE/rand/1/bin}, where “DE”
-means Differential Evolution, the word “rand” indicates that the so-called base vector
-is randomly chosen, “1” is the number of vector pairs (i.e., vector differences to be
-calculated) chosen, and finally “bin” means that a binomial recombination is chosen.
+vectors are generated. The most popular variant is called \code{DE/rand/1/bin}, where ``DE''
+means Differential Evolution, the word ``rand'' indicates that the so-called base vector
+is randomly chosen, ``1'' is the number of vector pairs (i.e., vector differences to be
+calculated) chosen, and finally ``bin'' means that a binomial recombination is chosen.
 The following is a list with the available variants:
 
 \itemize{
@@ -30,7 +30,7 @@ of vector differences, and binomial or exponential recombination. (Price and Sto
 of vector differences and binomial or exponential recombination. (Price and Storn, 1996)
 \item \code{\link{jade}}: A variant that includes some mechanisms to decrease the
 dependence to its parameter values such as F and CR. JADE uses a mutation strategy
-called \code{DE/current-to-pbest}, where \eqn{p ∈ (0 , 1]}. Base vectors are selected
+called \code{DE/current-to-pbest}, where \eqn{p \in (0 , 1]}. Base vectors are selected
 from the best \eqn{100p}% vectors in the current population. JADE, with the aim to
 maintaining diversity, uses an optional external archive. (Zhang and Sanderson, 2009)
 \item \code{\link{lshade}}: An improved version of JADE, LSHADE incorporates a
