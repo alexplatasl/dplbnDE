@@ -54,7 +54,7 @@ run.DEbest
 ```
 
 To learn parameters of a custom structure, load a matrix of sizes edges x 2. Where 
-columns represents direction (from-to) of edges. Like the followwing matrix:
+columns represents direction (from-to) of edges. Like the following matrix:
 
 ``` r
 my_structure
@@ -90,4 +90,4 @@ run.shade
 #plot(run.shade)
 ```
 
-After the learning process, returned bayesian networks can be analized with [`bnclassify`](https://cran.r-project.org/package=bnclassify) package.
+After the learning process, returned bayesian networks can be analyzed with [`bnclassify`](https://cran.r-project.org/package=bnclassify) package.
