@@ -37,6 +37,8 @@ lshade(
 that will replace de learned structure.}
 
 \item{verbose}{positive integer indicating the number of generations until the iteration progress should be printed.}
+
+\item{...}{other structure learning options from \link[bnclassify]{tan_cl} or \link[bnclassify]{tan_hc}.}
 }
 \value{
 A list with the following components.
