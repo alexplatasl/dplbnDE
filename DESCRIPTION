@@ -2,7 +2,7 @@ Package: dplbnDE
 Type: Package
 Title: Discriminative Parameter Learning of Bayesian Networks by Differential Evolution
 Version: 0.1.1
-Authors@R: c(person("Platas-López","Alejandro",email="alejandroplatasl@gmail.com",role=c("aut","cre")),
+Authors@R: c(person("Platas-López","Alejandro",email="alejandroplatasl@gmail.com",role=c("aut","cre"), comment = c(ORCID = "0000-0002-2584-343X")),
     person("Guerra-Hernández","Alejandro",email="aguerra@uv.mx",role="ths"))
 Maintainer: Platas-López Alejandro <alejandroplatasl@gmail.com>
 Description: Implements Differential Evolution (DE) to train parameters of Bayesian Networks (BN) for optimizing the Conditional Log-Likelihood (Discriminative Learning) instead of the log-likelihood (Generative Learning). Any given BN structure encodes assumptions about conditional independencies among the attributes and will result  in error if they do not hold in the data. Such an error includes the classification dimension. The main goal of Discriminative learning is minimize this type of error.
@@ -13,6 +13,4 @@ Depends:
 Imports:
     bnclassify (>= 0.4.5),
 LazyData: true
-RoxygenNote: 7.1.1
-Suggests: 
-    testthat
+RoxygenNote: 7.1.2
