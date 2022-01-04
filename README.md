@@ -90,4 +90,4 @@ run.shade
 #plot(run.shade)
 ```
 
-After the learning process, returned bayesian networks can be analized with [`bnclassify`](https://cran.r-project.org/web/packages/bnclassify/bnclassify.pdf) package.
+After the learning process, returned bayesian networks can be analized with [`bnclassify`](https://cran.r-project.org/package=bnclassify) package.
