@@ -72,7 +72,6 @@ NULL
 #' Data set from the UCI repository:
 #' \url{https://archive.ics.uci.edu/ml/datasets/Car+Evaluation}.
 #'
-#' @source \url{http://goo.gl/GTXrCz}
 #' @format A \code{data.frame} with 7 columns and 1728 rows.
 #' @docType data
 #' @name car
