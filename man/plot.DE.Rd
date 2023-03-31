@@ -9,7 +9,10 @@
 \arguments{
 \item{x}{A list of structures with parameters learned by \code{\link{DE}}.}
 
-\item{...}{unused.}
+\item{\ldots}{further arguments passed to plot.}
+}
+\value{
+Nothing. Side-effect: plots graphs.
 }
 \description{
 Plot main results of evolution

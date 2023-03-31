@@ -20,14 +20,24 @@
 #' @param ... other structure learning options from \link[bnclassify]{tan_cl} or \link[bnclassify]{tan_hc}.
 #'
 #' @export
-#' @return A list with the following components.
-#' \item{Best}{A \code{bnc_bn} object with the best individual in the final population.}
+#' @return An object of class \code{DE}, which is a list with the following components:
+#' \item{Best}{A \code{bnc_bn} object with the best individual in the final population, i.e., the bayesian network with the best fitness at the end of evolution.}
 #' \item{BestCLL}{A numeric specifying the Conditional Log-Likelihood of the best individual.}
-#' \item{pobFinal}{A list of \code{bnc_bn} objects with the final population.}
+#' \item{pobFinal}{A list of \code{bnc_bn} objects with the final population, i.e., a set of bayesian networks with optimized parameters at the end of evolution.}
 #' \item{CLLPobFinal}{A numeric vector specifying the Conditional Log-Likelihood of the final population.}
 #' \item{N.evals}{An integer giving the total number of evaluations.}
 #' \item{convergence}{A numeric vector giving the maximum Conditional Log-Likelihood at each generation.}
 #' \item{evaluations}{An integer vector giving the total number of evaluations at each generation.}
+#'
+#' @examples
+#' # Load data
+#' data(car)
+#' # Parameter learning with "LSHADE" variant
+#' dpl.lshade <- lshade(NP=40, G=50, data = car, class.name = names(car)[7], c = 0.1,
+#' structure = "tan", pB=0.05, edgelist = NULL, verbose = 5)
+#' # Print results
+#' print(dpl.lshade)
+#' \dontrun{plot(dpl.lshade)}
 
 
 lshade <- function(NP=40, G=100, data, class.name, c = 0.1, structure = c("nb","tancl","hc"),

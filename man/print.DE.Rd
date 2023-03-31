@@ -9,8 +9,12 @@
 \arguments{
 \item{x}{A list of structures with parameters learned by \code{\link{DE}}.}
 
-\item{...}{unused.}
+\item{\ldots}{Not used.}
+}
+\value{
+Nothing. Side-effect: print results.
 }
 \description{
 Print main results of evolution
 }
+\keyword{internal}

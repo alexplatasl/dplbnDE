@@ -45,10 +45,10 @@ the current population and the external archive.}
 \item{...}{other structure learning options from \link[bnclassify]{tan_cl} or \link[bnclassify]{tan_hc}.}
 }
 \value{
-A list with the following components.
-\item{Best}{A \code{bnc_bn} object with the best individual in the final population.}
+An object of class \code{DE}, which is a list with the following components:
+\item{Best}{A \code{bnc_bn} object with the best individual in the final population, i.e., the bayesian network with the best fitness at the end of evolution.}
 \item{BestCLL}{A numeric specifying the Conditional Log-Likelihood of the best individual.}
-\item{pobFinal}{A list of \code{bnc_bn} objects with the final population.}
+\item{pobFinal}{A list of \code{bnc_bn} objects with the final population, i.e., a set of bayesian networks with optimized parameters at the end of evolution.}
 \item{CLLPobFinal}{A numeric vector specifying the Conditional Log-Likelihood of the final population.}
 \item{N.evals}{An integer giving the total number of evaluations.}
 \item{convergence}{A numeric vector giving the maximum Conditional Log-Likelihood at each generation.}
@@ -57,4 +57,15 @@ A list with the following components.
 \description{
 Learn parameters of a Bayesian Network in a discriminative way
 by Adaptive Differential Evolution with optional external Archive
+}
+\examples{
+# Load data
+data(car)
+# Parameter learning with "JADE with Archive" variant, and structure with
+# hill-climbing algorithm, so argument "k" must be provided.
+dpl.jade <- jade(NP=40, G=50, data = car, class.name = names(car)[7], c = 0.1,
+structure = "hc", pB=0.05, edgelist = NULL, archive = TRUE, verbose = 5, k = 3)
+# Print results
+print(dpl.jade)
+\dontrun{plot(dpl.jade)}
 }
