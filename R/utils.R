@@ -245,7 +245,7 @@ getPBest = function(x, n=30) {
 #'
 #' @examples
 #' data(car)
-#' dpl.lshade <- lshade(NP=40, G=50, data = car, class.name = names(car)[7], c = 0.1,
+#' dpl.lshade <- lshade(NP=20, G=25, data = car, class.name = names(car)[7], c = 0.1,
 #' structure = "tan", pB=0.05, edgelist = NULL, verbose = 5)
 #' p <- predict(dpl.lshade$Best, car)
 #' accuracy(p, car$class)
