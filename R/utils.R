@@ -236,3 +236,46 @@ meanWL = function(S, diff){
 getPBest = function(x, n=30) {
   which(x >= -sort(-x, partial=n)[n])
 }
+
+#' Compute predictive accuracy.
+#'
+#' @param x A vector of predicted labels.
+#' @param y A vector of true labels.
+#' @export
+#'
+#' @examples
+#' data(car)
+#' dpl.lshade <- lshade(NP=40, G=50, data = car, class.name = names(car)[7], c = 0.1,
+#' structure = "tan", pB=0.05, edgelist = NULL, verbose = 5)
+#' p <- predict(dpl.lshade$Best, car)
+#' accuracy(p, car$class)
+accuracy <- function(x, y) {
+  if (length(x) != length(y)) {
+    stop("The 'predicted' and 'actual' vectors must have the same length.")
+  }
+
+  # Check if the inputs are character or factor vectors
+  if (!(is.character(x) || is.factor(x)) ||
+      !(is.character(y) || is.factor(y))) {
+    stop("Both arguments, 'predicted' and 'actual', must be character or factor vectors.")
+  }
+
+  # Convert character inputs to factor if necessary
+  if (is.character(x)) {
+    x <- factor(x)
+  }
+
+  if (is.character(y)) {
+    y <- factor(y)
+  }
+
+  # Calculate the total number of observations
+  total_observations <- length(x)
+
+  # Calculate the number of correctly classified observations
+  correct_predictions <- sum(x == y)
+
+  # Calculate and return the accuracy
+  accuracy <- correct_predictions / total_observations
+  return(accuracy)
+}

@@ -36,7 +36,7 @@
 #' @name dplbnDE
 #' @importFrom stats median sd runif rnorm rcauchy
 #' @importFrom graphics hist
-#' @importFrom bnclassify tan_cl tan_hc nb lp cLogLik accuracy
+#' @importFrom bnclassify tan_cl tan_hc nb lp cLogLik predict.bnc_fit accuracy
 #'
 #' @references Price K and Storn R (1996), Minimizing the real functions of the
 #' icec’96 contest by differential evolution. In \emph{Proc. of IEEE C. Evol.
