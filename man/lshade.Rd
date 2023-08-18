@@ -59,8 +59,8 @@ a Linear Population Size Reduction
 # Load data
 data(car)
 # Parameter learning with "LSHADE" variant
-dpl.lshade <- lshade(NP=40, G=50, data = car, class.name = names(car)[7], c = 0.1,
-structure = "tan", pB=0.05, edgelist = NULL, verbose = 5)
+dpl.lshade <- lshade(NP = 40, G = 50, data = car, class.name = names(car)[7], c = 0.1,
+structure = "tan", pB = 0.05, edgelist = NULL, verbose = 5)
 # Print results
 print(dpl.lshade)
 \dontrun{plot(dpl.lshade)}

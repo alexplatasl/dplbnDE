@@ -62,8 +62,8 @@ NULL
 #'
 #' @examples
 #' data(car)
-#' dpl.lshade <- lshade(NP=40, G=50, data = car, class.name = names(car)[7], c = 0.1,
-#' structure = "tan", pB=0.05, edgelist = NULL, verbose = 5)
+#' dpl.lshade <- lshade(NP = 40, G = 50, data = car, class.name = names(car)[7], c = 0.1,
+#' structure = "tan", pB = 0.05, edgelist = NULL, verbose = 5)
 #' dpl.lshade
 NULL
 

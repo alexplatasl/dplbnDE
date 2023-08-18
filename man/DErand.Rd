@@ -64,8 +64,8 @@ by Differential Evolution with variant rand/k
 # Load data
 data(car)
 # Parameter learning with "rand/2/bin" variant
-dpl.rand2bin <- DErand(NP=25, G=40, data = car, class.name = names(car)[7], F = 0.5,
-CR = 0.5, mutation.pairs = 2, crossover = "bin", structure = "tan",edgelist = NULL,
+dpl.rand2bin <- DErand(NP = 25, G = 40, data = car, class.name = names(car)[7], F = 0.5,
+CR = 0.5, mutation.pairs = 2, crossover = "bin", structure = "tan", edgelist = NULL,
 verbose = 10)
 # Print results
 print(dpl.rand2bin)

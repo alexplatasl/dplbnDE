@@ -1,9 +1,9 @@
 #' Generate a valid probability table for attribute Xa
 #'
 #' @keywords internal
-basGen = function(x){
-  aux = runif(x[1])
-  aux = aux/sum(aux)
+basGen <- function(x){
+  aux <- runif(x[1])
+  aux <- aux / sum(aux)
   aux
 }
 
@@ -12,12 +12,12 @@ basGen = function(x){
 #' This is a two entry table
 #'
 #' @keywords internal
-parGen = function(x){
-  p = list()
+parGen <- function(x){
+  p <- list()
   for (i in 1:x[2]){
-    aux = runif(x[1])
-    aux = aux/sum(aux)
-    p[[i]] = aux
+    aux <- runif(x[1])
+    aux <- aux / sum(aux)
+    p[[i]] <- aux
   }
   unlist(p)
 }
@@ -28,15 +28,15 @@ parGen = function(x){
 #' This a three entry table
 #'
 #' @keywords internal
-PARGEN = function(x){
-  lon = length(x)
-  p = list()
+PARGEN <- function(x){
+  lon <- length(x)
+  p <- list()
   if (lon == 1){
-    p = basGen(x)
+    p <- basGen(x)
   }else if(lon == 2){
-    p = parGen(x)
+    p <- parGen(x)
   }else{
-    p = replicate(x[3], parGen(x), simplify = FALSE)
+    p <- replicate(x[3], parGen(x), simplify = FALSE)
   }
   unlist(p)
 }
@@ -49,15 +49,15 @@ PARGEN = function(x){
 #' @param Z BN Structure with CPT slots
 #'
 #' @keywords internal
-individual = function(W,X,Y,Z){
-  ind = as.vector(unlist(lapply(X, PARGEN)))
+individual <- function(W, X, Y, Z){
+  ind <- as.vector(unlist(lapply(X, PARGEN)))
   unname(unlist(lapply(X, PARGEN)))
-  k = 1
-  id_params = grep(".params", names(Z))
+  k <- 1
+  id_params <- grep(".params", names(Z))
   for (i in 1:W){
     for (j in 1:Y[[i]]){
-      Z[[id_params]][[i]][j] = ind[k]
-      k = k + 1
+      Z[[id_params]][[i]][j] <- ind[k]
+      k <- k + 1
     }
   }
   Z
@@ -66,27 +66,52 @@ individual = function(W,X,Y,Z){
 #' Replace a vector of parameters in a CPT
 #'
 #' @keywords internal
-vec2net = function(vec,W,X,Y,Z){
-  ind = vec
-  k = 1
-  id_params = grep(".params", names(Z))
+vec2net <- function(vec, W, X, Y, Z){
+  ind <- vec
+  k <- 1
+  id_params <- grep(".params", names(Z))
   for (i in 1:W){
     for (j in 1:Y[[i]]){
-      Z[[id_params]][[i]][j] = ind[k]
-      k = k + 1
+      Z[[id_params]][[i]][j] <- ind[k]
+      k <- k + 1
     }
   }
   Z
 }
+
+#' Retrieve Families for a Given Node in Bayesian Network
+#'
+#' This function identifies and returns the family for a given node in a Bayesian network.
+#' The family is a set of nodes, which includes the node itself, its parents, and the class.
+#'
+#' @param node A node in the bayesian network.
+#' @param df An adjacency list representing the network, formatted as a data frame.
+#' @param class.str The name of the class node.
+#'
+#' @keywords internal
+#' @return A vector containing the node and its family members.
+get_family <- function(node, df, class.str) {
+  # Identify parents of the given node.
+  parents <- df$from[df$to == node]
+
+  # Exclude the class node from parents, and ensure it's the last family member.
+  parents <- setdiff(parents, class.str)
+  if (node != class.str) {
+    parents <- c(parents, class.str)
+  }
+
+  c(node, parents)
+}
+
 
 
 #' Generates a population of potential solutions
 #' @param pobSize Number of desired individuals at initial population
 #'
 #' @keywords internal
-population = function(pobSize, W, X, Y, Z){
-  pob = list()
-  pob = replicate(pobSize, individual(W,X,Y,Z), simplify=FALSE)
+population <- function(pobSize, W, X, Y, Z){
+  pob <- list()
+  pob <- replicate(pobSize, individual(W, X, Y, Z), simplify = FALSE)
   pob
 }
 
@@ -95,20 +120,20 @@ population = function(pobSize, W, X, Y, Z){
 #' Transform a matrix into a vector
 #'
 #' @keywords internal
-vec = function(mt){unname(unlist(mt))}
+vec <- function(mt){unname(unlist(mt))}
 
 
-#' Reparation to satisfy the constraints for (\eqn{\theta_{a,b}}) in [0 , 1]
+#' Reparation to satisfy the constraints for (\eqn{\theta_{a, b}}) in [0 , 1]
 #'
 #' @keywords internal
-reflect = function(vector){
-  l = which(vector < 0)
-  u = which(vector > 1)
-  if (length(c(l,u)) <= 0){
+reflect <- function(vector){
+  l <- which(vector < 0)
+  u <- which(vector > 1)
+  if (length(c(l, u)) <= 0){
     vector
   }else{
-    vector[l] = abs(vector[l]) %% 1
-    vector[u] = 1 - vector[u] %% 1
+    vector[l] <- abs(vector[l]) %% 1
+    vector[u] <- 1 - vector[u] %% 1
   }
   vector
 }
@@ -118,11 +143,11 @@ reflect = function(vector){
 #' In a two entry way table
 #'
 #' @keywords internal
-lev2 = function(x, index){
-  lista = c()
+lev2 <- function(x, index){
+  lista <- c()
   for (i in 1:x[2]){
-    lista = c(lista, rep(index, x[1]))
-    index = index + 1
+    lista <- c(lista, rep(index, x[1]))
+    index <- index + 1
   }
   lista
 }
@@ -131,12 +156,12 @@ lev2 = function(x, index){
 #' In a three entry way table
 #'
 #' @keywords internal
-lev3 = function(x, index){
-  lista = c()
+lev3 <- function(x, index){
+  lista <- c()
   for (i in 1:x[3]){
     for (j in 1:x[2]){
-      lista = c(lista, rep(index, x[1]))
-      index = index + 1
+      lista <- c(lista, rep(index, x[1]))
+      index <- index + 1
     }
   }
   lista
@@ -146,20 +171,20 @@ lev3 = function(x, index){
 #' Gives BN structure
 #'
 #' @keywords internal
-strRep = function(x){
-  index = 1
-  lista = c()
+strRep <- function(x){
+  index <- 1
+  lista <- c()
   for (i in 1:length(x)){
-    depth = length(x[[i]])
+    depth <- length(x[[i]])
     if (depth == 2){
-      lista = c(lista, lev2(x[[i]], index))
-      index = lista[length(lista)] + 1
+      lista <- c(lista, lev2(x[[i]], index))
+      index <- lista[length(lista)] + 1
     } else if (depth == 3){
-      lista = c(lista, lev3(x[[i]], index))
-      index = lista[length(lista)] + 1
+      lista <- c(lista, lev3(x[[i]], index))
+      index <- lista[length(lista)] + 1
     } else if (depth == 1){
-      lista = c(lista, rep(index, x[[i]]))
-      index = lista[length(lista)] + 1
+      lista <- c(lista, rep(index, x[[i]]))
+      index <- lista[length(lista)] + 1
     } else{
       cat('There is a not valid CPT \n')
     }
@@ -172,9 +197,9 @@ strRep = function(x){
 #' @param x is the mutant vector
 #' @param s is the netwotk structure given by \code{strRep}
 #' @keywords internal
-keepSum = function(x, s){
+keepSum <- function(x, s){
   for (i in 1:s[length(s)]){
-    x[which(s == i)] = x[which(s == i)] / sum(x[which(s == i)])
+    x[which(s == i)] <- x[which(s == i)] / sum(x[which(s == i)])
   }
   x
 }
@@ -185,12 +210,12 @@ keepSum = function(x, s){
 #' Normal distribution
 #'
 #' @keywords internal
-randN = function(Q, mCR){
-  CR = rnorm(Q, mCR, 0.1)
+randN <- function(Q, mCR){
+  CR <- rnorm(Q, mCR, 0.1)
   if (CR < 0 ){
-    CR = 0
+    CR <- 0
   } else if( CR > 1){
-    CR = 1
+    CR <- 1
   }
   CR
 }
@@ -199,12 +224,12 @@ randN = function(Q, mCR){
 #' Cauchy distribution
 #'
 #' @keywords internal
-randC = function(Q, mF){
-  F = rcauchy(Q, mF, 0.05)
+randC <- function(Q, mF){
+  F <- rcauchy(Q, mF, 0.05)
   if (F > 0 & F <= 1){
     F
   } else if(F > 1){
-    F = 1
+    F <- 1
     F
   } else if(F <= 0){
     randC(Q, mF)
@@ -215,15 +240,15 @@ randC = function(Q, mF){
 #' Lehmer mean
 #'
 #' @keywords internal
-meanL = function(sF){
+meanL <- function(sF){
   sum(sF^2) / sum(sF)
 }
 
 #' Parameter adaptation as in JADE
 #'
 #' @keywords internal
-meanWL = function(S, diff){
-  wk = diff / sum(diff)
+meanWL <- function(S, diff){
+  wk <- diff / sum(diff)
   sum(wk * S^2) /sum(wk * S)
 }
 
@@ -233,8 +258,8 @@ meanWL = function(S, diff){
 #' population
 #'
 #' @keywords internal
-getPBest = function(x, n=30) {
-  which(x >= -sort(-x, partial=n)[n])
+getPBest <- function(x, n = 30) {
+  which(x >= -sort(-x, partial = n)[n])
 }
 
 #' Compute predictive accuracy.
@@ -245,8 +270,8 @@ getPBest = function(x, n=30) {
 #'
 #' @examples
 #' data(car)
-#' dpl.lshade <- lshade(NP=20, G=25, data = car, class.name = names(car)[7], c = 0.1,
-#' structure = "tan", pB=0.05, edgelist = NULL, verbose = 5)
+#' dpl.lshade <- lshade(NP = 20, G = 25, data = car, class.name = names(car)[7], c = 0.1,
+#' structure = "tan", pB = 0.05, edgelist = NULL, verbose = 5)
 #' p <- predict(dpl.lshade$Best, car)
 #' accuracy(p, car$class)
 accuracy <- function(x, y) {
@@ -279,3 +304,7 @@ accuracy <- function(x, y) {
   accuracy <- correct_predictions / total_observations
   return(accuracy)
 }
+
+
+
+

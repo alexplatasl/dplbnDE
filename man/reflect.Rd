@@ -2,11 +2,11 @@
 % Please edit documentation in R/utils.R
 \name{reflect}
 \alias{reflect}
-\title{Reparation to satisfy the constraints for (\eqn{\theta_{a,b}}) in [0 , 1]}
+\title{Reparation to satisfy the constraints for (\eqn{\theta_{a, b}}) in [0 , 1]}
 \usage{
 reflect(vector)
 }
 \description{
-Reparation to satisfy the constraints for (\eqn{\theta_{a,b}}) in [0 , 1]
+Reparation to satisfy the constraints for (\eqn{\theta_{a, b}}) in [0 , 1]
 }
 \keyword{internal}

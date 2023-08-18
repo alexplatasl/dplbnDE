@@ -63,8 +63,8 @@ by Adaptive Differential Evolution with optional external Archive
 data(car)
 # Parameter learning with "JADE with Archive" variant, and structure with
 # hill-climbing algorithm, so argument "k" must be provided.
-dpl.jade <- jade(NP=40, G=50, data = car, class.name = names(car)[7], c = 0.1,
-structure = "hc", pB=0.05, edgelist = NULL, archive = TRUE, verbose = 5, k = 3)
+dpl.jade <- jade(NP = 40, G = 50, data = car, class.name = names(car)[7], c = 0.1,
+structure = "hc", pB = 0.05, edgelist = NULL, archive = TRUE, verbose = 5, k = 3)
 # Print results
 print(dpl.jade)
 \dontrun{plot(dpl.jade)}
