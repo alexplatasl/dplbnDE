@@ -32,8 +32,9 @@
 #' Linear Population Size Reduction (LPSR) in order to improve the performance. (Tanabe and Fukunaga, 2014)
 #' }
 #'
+#' @name dplbnDE-package
 #' @docType package
-#' @name dplbnDE
+"_PACKAGE"
 #' @importFrom stats median sd runif rnorm rcauchy
 #' @importFrom graphics hist
 #' @importFrom bnclassify tan_cl tan_hc nb lp cLogLik

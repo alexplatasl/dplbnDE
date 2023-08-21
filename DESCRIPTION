@@ -1,7 +1,7 @@
 Package: dplbnDE
 Type: Package
 Title: Discriminative Parameter Learning of Bayesian Networks by Differential Evolution
-Version: 0.1.3
+Version: 0.1.4
 Authors@R: c(person("Alejandro","Platas-Lopez",email="alejandroplatasl@gmail.com",role=c("aut","cre"), comment = c(ORCID = "0000-0002-2584-343X")),
     person("Alejandro","Guerra-Hernandez",email="aguerra@uv.mx",role="ths", comment = c(ORCID = "0000-0002-4856-4011")))
 Maintainer: Alejandro Platas-Lopez <alejandroplatasl@gmail.com>
