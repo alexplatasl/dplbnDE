@@ -45,6 +45,12 @@ individuals receive longer local search chains. (Molina, Lozano, and Herrera, 20
 \item \code{\link{mos}}: Multiple Offspring Sampling. A framework that dynamically combines
 SHADE and Solis-Wets, adjusting participation of each technique based on recent
 performance. (LaTorre, Muelas, and Pena, 2013)
+\item \code{\link{jso}}: Algorithm jSO, an improved iL-SHADE with weighted mutation
+(current-to-pbest-w/1) and phase-based parameter constraints. (Brest, Maucec, and Boskovic, 2017)
+\item \code{\link{nlshadersp}}: NL-SHADE-RSP with non-linear population size reduction
+and ranked-based selective pressure for donor vector selection. (Stanovov, Akhmedova, and Semenkin, 2021)
+\item \code{\link{shademts}}: SHADE hybridized with MTS-LS1 coordinate-wise local search
+for exploiting near-separable structure in high-dimensional problems. (Tseng and Chen, 2008)
 }
 }
 \seealso{

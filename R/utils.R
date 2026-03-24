@@ -427,6 +427,81 @@ fastCLL <- function(net, cll_data) {
 }
 
 
+#' Cauchy random for jSO (scale 0.1, truncated to (0, 1])
+#'
+#' @keywords internal
+randC_jso <- function(Q, mF) {
+  F <- rcauchy(Q, mF, 0.1)
+  if (F > 1) F <- 1
+  if (F <= 0) return(randC_jso(Q, mF))
+  F
+}
+
+
+#' MTS-LS1: coordinate-wise local search
+#'
+#' @param x_vec Current parameter vector
+#' @param f_x Current fitness (CLL) value
+#' @param SR Step sizes per dimension
+#' @param max_dims Maximum dimensions to perturb per call
+#' @param budget Maximum evaluations
+#' @param group_indices Precomputed group indices
+#' @param Z Template bnc_bn object
+#' @param id_params Index of .params in Z
+#' @param offsets Precomputed offsets
+#' @param cll_data Precomputed CLL data
+#'
+#' @keywords internal
+mtsLS1 <- function(x_vec, f_x, SR, max_dims, budget,
+                   group_indices, Z, id_params, offsets, cll_data) {
+  dim <- length(x_vec)
+  evals <- 0L
+  dims_to_try <- sample.int(dim, min(max_dims, dim))
+
+  for (j in dims_to_try) {
+    if (evals >= budget) break
+
+    # Try negative perturbation
+    x_trial <- x_vec
+    x_trial[j] <- x_trial[j] - SR[j]
+    x_trial <- reflect(x_trial)
+    x_trial <- keepSumFast(x_trial, group_indices)
+    net_trial <- vec2netFast(x_trial, Z, id_params, offsets)
+    f_trial <- fastCLL(net_trial, cll_data)
+    evals <- evals + 1L
+
+    if (f_trial > f_x) {
+      x_vec <- x_trial
+      f_x <- f_trial
+      SR[j] <- SR[j] * 2
+      next
+    }
+
+    if (evals >= budget) break
+
+    # Try positive perturbation (half step)
+    x_trial <- x_vec
+    x_trial[j] <- x_trial[j] + 0.5 * SR[j]
+    x_trial <- reflect(x_trial)
+    x_trial <- keepSumFast(x_trial, group_indices)
+    net_trial <- vec2netFast(x_trial, Z, id_params, offsets)
+    f_trial <- fastCLL(net_trial, cll_data)
+    evals <- evals + 1L
+
+    if (f_trial > f_x) {
+      x_vec <- x_trial
+      f_x <- f_trial
+      SR[j] <- SR[j] * 2
+    } else {
+      SR[j] <- SR[j] * 0.5
+      if (SR[j] < 1e-15) SR[j] <- 0.4
+    }
+  }
+
+  list(vec = x_vec, f_vec = f_x, SR = SR, evals = evals)
+}
+
+
 #' Solis-Wets Local Search on BN parameter vector
 #'
 #' @param x_vec Current parameter vector
