@@ -33,7 +33,7 @@
 #' # Load data
 #' data(car)
 #' # Parameter learning with "LSHADE" variant
-#' dpl.lshade <- lshade(NP = 40, G = 50, data = car, class.name = names(car)[7], c = 0.1,
+#' dpl.lshade <- lshade(NP = 20, G = 25, data = car, class.name = names(car)[7], c = 0.1,
 #' structure = "tan", pB = 0.05, edgelist = NULL, verbose = 5)
 #' # Print results
 #' print(dpl.lshade)
@@ -124,7 +124,7 @@ lshade <- function(NP = 40, G = 100, data, class.name, c = 0.1, structure = c("n
   # Starts Archive
   Archive <- list()
   # p-best  individuals to choose
-  pBest <- NP * pB
+  pBest <- max(1, round(NP * pB))
   # Max number of evaluations
   MAX_NFE <- G * NP
   # Minimal number of individuals for mutation strategy

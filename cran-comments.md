@@ -1,27 +1,28 @@
 ## Resubmission
 
-This package was previously archived from CRAN. This version (0.2.0) addresses
-the issues that led to its removal and includes several improvements:
+This is a resubmission addressing the issues from the previous review:
 
-- Fixed compatibility with current bnclassify (>= 0.4.5) on CRAN
-- Fixed bug in structure selection that ignored user-specified structures
-- Fixed custom Bayesian network input via edgelist parameter
-- Performance optimizations in the inner DE loop
-- Added matrixStats as dependency
+- Fixed typo "mutarion" -> "mutation" in DESCRIPTION
+- Reduced example sizes (NP and G) so all examples run under 5s
+- The words flagged as misspelled (Discriminative, Fukunaga, Sanderson,
+  Storn, Tanabe, Zhang, independencies) are proper nouns, author names,
+  and technical terms that are correctly spelled.
+
+This package was previously archived from CRAN because it depended on
+bnclassify which was also archived. bnclassify is back on CRAN (0.4.8).
 
 ## Test environments
 
 * Windows 11 (local), R 4.5.0
-* R CMD check results: 0 errors | 0 warnings | 1 note
+* win-builder (r-devel-windows-x86_64) - previous submission
+* Debian (r-devel-linux-x86_64-debian-gcc) - previous submission
 
 ## R CMD check results
 
-There was 1 NOTE:
+0 errors | 0 warnings | 1 note
 
-* checking for future file timestamps ... NOTE
-  unable to verify current time
-
-This is a transient network issue unrelated to the package.
+The NOTE about "New submission / Package was archived on CRAN" is expected
+since this package is being resubmitted after archival.
 
 ## Downstream dependencies
 

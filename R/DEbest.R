@@ -34,9 +34,9 @@
 #' # Load data
 #' data(car)
 #' # Parameter learning with "best/1/bin" variant
-#' dpl.best1bin <- DEbest(NP = 25, G = 35, data = car, class.name = names(car)[7], F = 0.5,
+#' dpl.best1bin <- DEbest(NP = 20, G = 25, data = car, class.name = names(car)[7], F = 0.5,
 #' CR = 0.7, mutation.pairs = 1, crossover = "bin", structure = "tan", edgelist = NULL,
-#' verbose = 10)
+#' verbose = 5)
 #' # Print results
 #' print(dpl.best1bin)
 #' \dontrun{plot(dpl.best1bin)}
