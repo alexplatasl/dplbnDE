@@ -10,7 +10,7 @@ jade(
   data,
   class.name,
   c = 0.1,
-  structure = c("nb", "tancl", "hc"),
+  structure = c("nb", "tancl", "tan", "hc"),
   pB = 0.05,
   edgelist = NULL,
   archive = TRUE,

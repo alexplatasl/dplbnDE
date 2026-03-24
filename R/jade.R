@@ -42,7 +42,7 @@
 #' \dontrun{plot(dpl.jade)}
 
 
-jade <- function(NP = 40, G = 100, data, class.name, c = 0.1, structure = c("nb", "tancl", "hc"),
+jade <- function(NP = 40, G = 100, data, class.name, c = 0.1, structure = c("nb", "tancl", "tan", "hc"),
                    pB = 0.05, edgelist = NULL, archive = TRUE, verbose = 25, ...){
 
   if (NP <= 5){
@@ -70,10 +70,11 @@ jade <- function(NP = 40, G = 100, data, class.name, c = 0.1, structure = c("nb"
   record_evals <- c()
 
   # Algorithm to learn structure
-  if(!is.null(structure)){
+  if(is.null(structure)){
     structure <- "nb"
   }
   structure <- match.arg(structure)
+  if (structure == "tan") structure <- "tancl"
   if (structure == "tancl"){
     bn <- bnclassify::tan_cl(class.name, data, ...)
   }else if(structure == "hc"){
@@ -85,16 +86,7 @@ jade <- function(NP = 40, G = 100, data, class.name, c = 0.1, structure = c("nb"
 
   # To replace BN structure from adjacency list (if provided)
   if (!is.null(edgelist)){
-    bn[[2]][[2]] <- edgelist
-    bn[[4]][[1]] <- "tan_cl"
-
-    # Make families
-    df <- as.data.frame(edgelist)
-    unique_nodes <- unique(c(df$from, df$to))
-    unique_nodes <- unique_nodes[order(unique_nodes != class.name, decreasing = TRUE)]
-    families <- lapply(unique_nodes, function(node) get_family(node, df, class.name))
-    names(families) <- unique_nodes
-    bn[[3]] <- families
+    bn <- apply_edgelist(bn, edgelist, class.name)
   }
 
   # Start CPTs
@@ -105,11 +97,17 @@ jade <- function(NP = 40, G = 100, data, class.name, c = 0.1, structure = c("nb"
   dim <- sum(unlist(Y))
   COL <-  strRep(X)
 
+  # Precompute optimized structures
+  group_indices <- lapply(seq_len(max(COL)), function(i) which(COL == i))
+  id_params <- grep(".params", names(Z))
+  offsets <- precompute_offsets(Y)
+  cll_data <- precompute_cll_data(data, Z)
+
   # Differential Evolution
   # Starts population
   pop <- population(NP, W, X,  Y, Z)
   # Fitness evaluation
-  CLL <- function(net) bnclassify::cLogLik(net, data)
+  CLL <- function(net) fastCLL(net, cll_data)
   fitness <- unlist(lapply(pop, CLL))
   neval <- neval + NP
   record_evals <- c(neval)
@@ -149,8 +147,8 @@ jade <- function(NP = 40, G = 100, data, class.name, c = 0.1, structure = c("nb"
       trial <- vec(pop[[j]]$.params);
       trial[cross_points] <- mutant[cross_points] # Cross Over
       # Repair 2
-      trial <- keepSum(trial, COL)
-      trial <- vec2net(trial, W, X, Y, Z)
+      trial <- keepSumFast(trial, group_indices)
+      trial <- vec2netFast(trial, Z, id_params, offsets)
       f <- CLL(trial)
       neval <- neval + 1
       if(f > fitness[j]){

@@ -13,7 +13,7 @@ DEbest(
   CR = 0.7,
   mutation.pairs = c(1, 2),
   crossover = c("bin", "exp"),
-  structure = c("nb", "tancl", "hc"),
+  structure = c("nb", "tancl", "tan", "hc"),
   edgelist = NULL,
   verbose = 25,
   ...

@@ -37,6 +37,7 @@
 "_PACKAGE"
 #' @importFrom stats median sd runif rnorm rcauchy
 #' @importFrom graphics hist
+#' @importFrom matrixStats rowLogSumExps
 #' @importFrom bnclassify tan_cl tan_hc nb lp cLogLik
 #'
 #' @references Price K and Storn R (1996), Minimizing the real functions of the
