@@ -427,6 +427,74 @@ fastCLL <- function(net, cll_data) {
 }
 
 
+#' Solis-Wets Local Search on BN parameter vector
+#'
+#' @param x_vec Current parameter vector
+#' @param f_x Current fitness (CLL) value
+#' @param rho Search radius
+#' @param bias Directional bias vector
+#' @param n_success Consecutive successes count
+#' @param n_fail Consecutive failures count
+#' @param budget Maximum evaluations
+#' @param group_indices Precomputed group indices for keepSumFast
+#' @param Z Template bnc_bn object
+#' @param id_params Index of .params in Z
+#' @param offsets Precomputed offsets for vec2netFast
+#' @param cll_data Precomputed CLL data
+#'
+#' @keywords internal
+solisWetsSearch <- function(x_vec, f_x, rho, bias, n_success, n_fail,
+                            budget, group_indices, Z, id_params, offsets,
+                            cll_data) {
+  dim <- length(x_vec)
+  evals <- 0L
+
+  while (evals < budget && rho > 1e-11) {
+    delta <- rnorm(dim, 0, rho)
+
+    # Try positive direction
+    x_plus <- reflect(x_vec + delta + bias)
+    x_plus <- keepSumFast(x_plus, group_indices)
+    net_plus <- vec2netFast(x_plus, Z, id_params, offsets)
+    f_plus <- fastCLL(net_plus, cll_data)
+    evals <- evals + 1L
+
+    if (f_plus > f_x) {
+      bias <- 0.2 * bias + 0.4 * (delta + bias)
+      x_vec <- x_plus
+      f_x <- f_plus
+      n_success <- n_success + 1L
+      n_fail <- 0L
+    } else {
+      # Try negative direction
+      x_minus <- reflect(x_vec - delta - bias)
+      x_minus <- keepSumFast(x_minus, group_indices)
+      net_minus <- vec2netFast(x_minus, Z, id_params, offsets)
+      f_minus <- fastCLL(net_minus, cll_data)
+      evals <- evals + 1L
+
+      if (f_minus > f_x) {
+        bias <- bias - 0.4 * (delta + bias)
+        x_vec <- x_minus
+        f_x <- f_minus
+        n_success <- n_success + 1L
+        n_fail <- 0L
+      } else {
+        bias <- 0.5 * bias
+        n_fail <- n_fail + 1L
+        n_success <- 0L
+      }
+    }
+
+    if (n_success >= 5L) { rho <- rho * 2; n_success <- 0L }
+    if (n_fail >= 3L) { rho <- rho * 0.5; n_fail <- 0L }
+  }
+
+  list(vec = x_vec, f_vec = f_x, rho = rho, bias = bias,
+       n_success = n_success, n_fail = n_fail, evals = evals)
+}
+
+
 #' Compute predictive accuracy.
 #'
 #' @param x A vector of predicted labels.

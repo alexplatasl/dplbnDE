@@ -30,6 +30,15 @@
 #' maintaining diversity, uses an optional external archive. (Zhang and Sanderson, 2009)
 #' \item \code{\link{lshade}}: An improved version of JADE, LSHADE incorporates a
 #' Linear Population Size Reduction (LPSR) in order to improve the performance. (Tanabe and Fukunaga, 2014)
+#' \item \code{\link{shadeils}}: SHADE with Iterative Local Search. Combines SHADE
+#' as global explorer with Solis-Wets local search for intensification, plus a partial
+#' restart mechanism when stagnation is detected. (Molina, LaTorre, and Herrera, 2018)
+#' \item \code{\link{maswchains}}: Memetic Algorithm with Solis-Wets Chains. Each individual
+#' maintains a persistent Solis-Wets state. After each DE generation, the most promising
+#' individuals receive longer local search chains. (Molina, Lozano, and Herrera, 2010)
+#' \item \code{\link{mos}}: Multiple Offspring Sampling. A framework that dynamically combines
+#' SHADE and Solis-Wets, adjusting participation of each technique based on recent
+#' performance. (LaTorre, Muelas, and Pena, 2013)
 #' }
 #'
 #' @name dplbnDE-package
@@ -56,7 +65,8 @@ NULL
 #'
 #' A list with Bayesian Networks, structure and parameters learned in a discriminative way by
 #' diferential evolution returned by \code{\link{lshade}}, \code{\link{jade}},
-#' \code{\link{DEbest}}, or \code{\link{DErand}} functions.
+#' \code{\link{DEbest}}, \code{\link{DErand}}, \code{\link{shadeils}},
+#' \code{\link{maswchains}}, or \code{\link{mos}} functions.
 #'
 #'@name DE
 #'

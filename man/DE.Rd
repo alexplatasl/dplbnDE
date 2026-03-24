@@ -6,7 +6,8 @@
 \description{
 A list with Bayesian Networks, structure and parameters learned in a discriminative way by
 diferential evolution returned by \code{\link{lshade}}, \code{\link{jade}},
-\code{\link{DEbest}}, or \code{\link{DErand}} functions.
+\code{\link{DEbest}}, \code{\link{DErand}}, \code{\link{shadeils}},
+\code{\link{maswchains}}, or \code{\link{mos}} functions.
 }
 \examples{
 data(car)
